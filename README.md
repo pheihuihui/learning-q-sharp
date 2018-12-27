@@ -75,7 +75,7 @@ qubit是量子计算中信息存储和处理的基本单位。对于开发者而
 
 相信很多人都听说过“薛定谔的猫”，当我们未对其进行观察时，猫处于既死又活的叠加态，一旦我们进行了观察，猫就立即处于要么死要么活的确定态。量子也是这样，根据量子力学原理，当对量子进行测量或观察（位置、动量等）时，必然会导致量子态**坍缩**。我们只能得到测量后的一种确定的状态，而无从知晓测量前量子的真正状态。
 
-测量会导致量子态坍缩为某个基态（$|0 \rangle​$ 或$|1 \rangle​$ )。一个状态为$|\psi \rangle​$ 的量子，其状态可以表示为$|\psi \rangle = \alpha |0 \rangle + \beta |1 \rangle​$ ，其中$\alpha​$ 和$\beta​$ 均为复数，对其进行测量后得到状态$|0 \rangle​$ 的概率为$| \alpha |^2​$ ，得到状态$|1 \rangle​$ 的概率为$ | \beta |^2​$ ，根据概率论的知识，我们可以得出$\alpha​$ 和$\beta​$ 满足$| \alpha |^2 + | \beta |^2 = 1​$ 。
+测量会导致量子态坍缩为某个基态（$|0 \rangle​$ 或$|1 \rangle​$ )。一个状态为$|\psi \rangle​$ 的量子，其状态可以表示为$|\psi \rangle = \alpha |0 \rangle + \beta |1 \rangle​$ ，其中$\alpha​$ 和$\beta​$ 均为复数，对其进行测量后得到状态$|0 \rangle​$ 的概率为$| \alpha |^2​$ ，得到状态$|1 \rangle​$ 的概率为$|\beta |^2​$ ，根据概率论的知识，我们可以得出$\alpha​$ 和$\beta​$ 满足$| \alpha |^2 + | \beta |^2 = 1​$ 。
 
 上面的描述似乎说明了我们永远也无法得到一个量子的确切状态，无法得到确切状态的系统怎么会有用呢？并且又怎么为我们所用呢？
 
@@ -113,7 +113,7 @@ qubit是量子计算中信息存储和处理的基本单位。对于开发者而
 
 以上面的$S$ 门$\begin{bmatrix} \quad 1\qquad 0 \quad \\ 0\qquad i \end{bmatrix}$为例，我们使用$S^{\dagger }$ 表示$S$ 的共轭转置矩阵，那么$S ^{\dagger} = \begin{bmatrix} \quad 1\qquad 0 \quad \\ 0\quad -i \end{bmatrix}$，计算可得$SS ^{\dagger} = I$ ，也就是说$S ^{\dagger} = \bar{S}$ ，这里的$\bar{S}$ 表示$S$ 的逆矩阵，因此矩阵$S$ 就是一个幺正矩阵，或者也可以说矩阵$S$ 是幺正的。通过简单的验算，我们可以证明上面提到的X、Y、Z门等都是幺正的。
 
-那么为什么量子门矩阵必须是幺正的呢？这是因为，根据量子力学的原理，量子态的演变必须是幺正的。式1是[Schrodinger 方程](https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation)，它描述了一个量子态在时域上的演进，式中的$h$ 是[普朗克常量](https://en.wikipedia.org/wiki/Planck_constant)，H是一个特定的[汉密尔顿算子（Hamiltonian）](https://www.encyclopediaofmath.org/index.php/Hamilton_operator)，这里我们不必对其进行深究。对式1进行积分运算后我们最终可以得到$t1$ 和$t2$ 时刻的量子态之间的演进过程，如式3所示。可以证明式3中的$exp[\frac {-iH(t_{2} - t_{1})} {h}] $ 是幺正的，它对应的幺正矩阵用$U(t_1,t_2)$ 表示【详细证明过程请《Quantum_Computation_and_Quantum_Information》第82到83页】，因此量子门必须是幺正的。从另一个更直观的角度来看，量子空间是一个连续空间，一个量子态可以演进为任意其它量子态，同时演进后的量子态依然能回归最初的状态，这意味着量子门操作必须是可逆的，在这个过程中不能有信息的丢失，幺正矩阵恰恰就代表着这样的可逆过程。例如有一个状态为$|\psi \rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1\end{bmatrix}$ 的量子，先对其应用$S$ 门，再应用$S ^{\dagger}$ 门，因为对量子应用量子门操作相当于态矢量左乘相应的矩阵，因此上述过程可表述为$S ^{\dagger} ( S\cdot |\psi \rangle) = (S ^{\dagger} \cdot S) \cdot |\psi \rangle = I \cdot |\psi \rangle = |\psi \rangle$ ，经过了两次门操作后，量子又回到了最初的状态。
+那么为什么量子门矩阵必须是幺正的呢？这是因为，根据量子力学的原理，量子态的演变必须是幺正的。式1是[Schrodinger 方程](https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation)，它描述了一个量子态在时域上的演进，式中的$h$ 是[普朗克常量](https://en.wikipedia.org/wiki/Planck_constant)，H是一个特定的[汉密尔顿算子（Hamiltonian）](https://www.encyclopediaofmath.org/index.php/Hamilton_operator)，这里我们不必对其进行深究。对式1进行积分运算后我们最终可以得到$t1$ 和$t2$ 时刻的量子态之间的演进过程，如式3所示。可以证明式3中的$exp[\frac {-iH(t_{2} - t_{1})} {h}]$ 是幺正的，它对应的幺正矩阵用$U(t_1,t_2)$ 表示【详细证明过程请《Quantum_Computation_and_Quantum_Information》第82到83页】，因此量子门必须是幺正的。从另一个更直观的角度来看，量子空间是一个连续空间，一个量子态可以演进为任意其它量子态，同时演进后的量子态依然能回归最初的状态，这意味着量子门操作必须是可逆的，在这个过程中不能有信息的丢失，幺正矩阵恰恰就代表着这样的可逆过程。例如有一个状态为$|\psi \rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1\end{bmatrix}$ 的量子，先对其应用$S$ 门，再应用$S ^{\dagger}$ 门，因为对量子应用量子门操作相当于态矢量左乘相应的矩阵，因此上述过程可表述为$S ^{\dagger} ( S\cdot |\psi \rangle) = (S ^{\dagger} \cdot S) \cdot |\psi \rangle = I \cdot |\psi \rangle = |\psi \rangle$ ，经过了两次门操作后，量子又回到了最初的状态。
 
 ​									$ih \frac{d|\psi \rangle}{dt} = H|\psi \rangle$ (1)
 
@@ -138,27 +138,27 @@ qubit是量子计算中信息存储和处理的基本单位。对于开发者而
 |                     运算                      |                             功能                             |
 | :-------------------------------------------: | :----------------------------------------------------------: |
 |                    $Z ^*$                     |           复数$Z$ 的共轭，如$(1 + i) ^* = (1 - i)$           |
-|                $|\psi \rangle$                |                      右矢，也叫做$ket$                       |
-|                $\langle \psi|$                |             左矢（右矢的对偶矢量），也叫做$bra$              |
-|       $\langle \varphi | \psi \rangle$        |     两个矢量$| \varphi \rangle$ 和$|\psi \rangle$ 的内积     |
-|      $| \varphi \rangle \langle \psi |$       |     两个矢量$| \varphi \rangle$ 和$|\psi \rangle$ 的外积     |
-| $| \varphi \rangle \bigotimes | \psi \rangle$ |    两个矢量$| \varphi \rangle$ 和$|\psi \rangle$ 的张量积    |
-|      $| \varphi \rangle | \psi \rangle$       |                     矢量张量积的简写形式                     |
+|                $\text{\textbar}\psi\rangle$                |                      右矢，也叫做$ket$                       |
+|                $\langle \psi\text{\textbar}$                |             左矢（右矢的对偶矢量），也叫做$bra$              |
+|       $\langle \varphi \text{\textbar} \psi \rangle$        |     两个矢量$\text{\textbar}\varphi \rangle$ 和$\text{\textbar}\psi \rangle$ 的内积     |
+|      $\text{\textbar} \varphi \rangle \langle \psi \text{\textbar}$       |     两个矢量$\text{\textbar}\varphi \rangle$ 和$\text{\textbar}\psi \rangle$ 的外积     |
+| $\text{\textbar} \varphi \rangle \bigotimes \text{\textbar} \psi \rangle$ |    两个矢量$\text{\textbar}\varphi \rangle$ 和$\text{\textbar}\psi \rangle$ 的张量积    |
+|      $\text{\textbar} \varphi \rangle \text{\textbar} \psi \rangle$       |                     矢量张量积的简写形式                     |
 |                    $A ^*$                     |                        矩阵$A$ 的共轭                        |
 |                   $A ^{T}$                    |                        矩阵$A$ 的转置                        |
 |                $A ^{\dagger}$                 | 矩阵$A$ 的转置共轭，$\begin{bmatrix} \quad a\qquad b \quad \\ c\qquad d \end{bmatrix} ^{\dagger} = \begin{bmatrix} \quad a^*\qquad c^* \quad \\ b^*\qquad d* \end{bmatrix}$ |
 |               $A \bigotimes B$                |                  两个矩阵$A$ 和$B$ 的张量积                  |
-|     $\langle \varphi | A | \psi \rangle$      | $| \varphi \rangle$ 与$A | \psi \rangle$ 的内积，等价于$A ^{\dagger} | \varphi \rangle$ 与$| \psi \rangle$ 的内积 |
+|     $\langle \varphi \text{\textbar} A \text{\textbar} \psi \rangle$      | $\text{\textbar} \varphi \rangle$ 与$A \text{\textbar} \psi \rangle$ 的内积，等价于$A ^{\dagger} \text{\textbar} \varphi \rangle$ 与$\text{\textbar} \psi \rangle$ 的内积 |
 
 我们重点讲解一下内积、外积与张量积运算，这几种运算广泛应用于量子计算、量子程序设计、量子门分解等各种场合中，知悉这些运算的内涵和方法是学习量子计算的基础，但是请放心，我会以非常简单的形式告诉你这些运算的内涵，绝对不会让你为繁杂的数学运算所困扰。
 
 首先来看矢量的内积运算。矢量的内积也叫做点积，假设我们有两个矢量$| \alpha \rangle$ 和$| \beta \rangle$ ，这两个矢量拥有相同的元素个数$N$ ，那么它们的内积定义为：
 
-​							$|\alpha \rangle \cdot | \beta \rangle = \alpha_{1}^*\beta_{1} + \alpha_{2}^*\beta_{2} + \cdots + \alpha_{N}^*\beta_{N} = \sum_{i=1}^{N}\alpha_{i}^* \beta_{i} $
+​							$|\alpha \rangle \cdot | \beta \rangle = \alpha_{1}^*\beta_{1} + \alpha_{2}^*\beta_{2} + \cdots + \alpha_{N}^*\beta_{N} = \sum_{i=1}^{N}\alpha_{i}^* \beta_{i}$
 
 其中$\alpha_{i}$ 和$\beta_{i}$ 分别是这两个矢量的元素。从上面的等式中可以看出，两个矢量的内积就是第一个矢量中各元素的共轭与第二个矢量对应元素乘积的加和，使用Dirac符号可以非常方便地将内积表示为：$\langle \alpha | \beta \rangle$ ，其左侧部分$\langle \alpha |$ 正是矢量$| \alpha \rangle$ 的复数共轭，且与$|\alpha \rangle$ 相互对偶。
 
-两个矢量$| \alpha \rangle$ 和$| \beta \rangle$ 的外积定义为$ |\alpha \rangle \langle \beta|$ ，因为$|\alpha \rangle$ 和$\langle \beta|$ 分别为列向量和行向量，因此矢量的外积是一个方阵，这个方阵的大小为$N \times N$ 。
+两个矢量$| \alpha \rangle$ 和$| \beta \rangle$ 的外积定义为$|\alpha \rangle \langle \beta|$ ，因为$|\alpha \rangle$ 和$\langle \beta|$ 分别为列向量和行向量，因此矢量的外积是一个方阵，这个方阵的大小为$N \times N$ 。
 
 两个矩阵$A$ 和$B$ 的张量积表示为$A \bigotimes B$ ，它的定义如下所示：
 
@@ -334,7 +334,7 @@ $Toffoli$门说明了很重要的一点：**量子计算和经典计算可以通
 
 ​									图3.1  量子线路图示例
 
-这是一个有三个输入的量子线路，三个输入qubit分别为一个为止状态的$|\varphi  \rangle$ 和两个$|0 \rangle$，我们将$\varphi \rangle$ 表示为$|\varphi \rangle = \alpha |0 \rangle + |1 \rangle$ 在图中，我们将线路中某一位置的量子态用虚线进行了标示。首先，两个$| 0 \rangle$ 经过一个$H$ 门和一个$CNOT$ 门的作用后，状态变为$ \frac {1} {\sqrt{2}}(| 00 \rangle + |11 \rangle)$，此时与第一个量子$| \varphi \rangle$ 构成的三量子系统的状态为：
+这是一个有三个输入的量子线路，三个输入qubit分别为一个为止状态的$|\varphi  \rangle$ 和两个$|0 \rangle$，我们将$\varphi \rangle$ 表示为$|\varphi \rangle = \alpha |0 \rangle + |1 \rangle$ 在图中，我们将线路中某一位置的量子态用虚线进行了标示。首先，两个$| 0 \rangle$ 经过一个$H$ 门和一个$CNOT$ 门的作用后，状态变为$\frac {1} {\sqrt{2}}(| 00 \rangle + |11 \rangle)$，此时与第一个量子$| \varphi \rangle$ 构成的三量子系统的状态为：
 
 ​				$| \varphi_{0} \rangle = |\varphi \rangle \otimes [\frac {1} {\sqrt{2}}(| 00 \rangle + | 11 \rangle)] = \frac{1}{\sqrt{2}}[\alpha |0 \rangle (| 00 \rangle + | 11 \rangle) + \beta |1 \rangle  (| 00 \rangle + | 11 \rangle)]$ 
 
@@ -364,10 +364,10 @@ $Toffoli$门说明了很重要的一点：**量子计算和经典计算可以通
 
 | $M_{1}$ | $M_{2}$ |   转换操作   |                  结果                  |
 | :-----: | :-----: | :----------: | :------------------------------------: |
-|    0    |    0    | $Z^{0}X^{0}$ | $\alpha |0 \rangle + \beta |1 \rangle$ |
-|    0    |    1    | $Z^{0}X^{1}$ | $\alpha |1 \rangle + \beta |0 \rangle$ |
-|    1    |    0    | $Z^{1}X^{0}$ | $\alpha |0 \rangle - \beta |1 \rangle$ |
-|    1    |    1    | $Z^{1}X^{0}$ | $\alpha |1 \rangle - \beta |0 \rangle$ |
+|    0    |    0    | $Z^{0}X^{0}$ | $\alpha \text{\textbar}0 \rangle + \beta \text{\textbar}1 \rangle$ |
+|    0    |    1    | $Z^{0}X^{1}$ | $\alpha \text{\textbar}1 \rangle + \beta \text{\textbar}0 \rangle$ |
+|    1    |    0    | $Z^{1}X^{0}$ | $\alpha \text{\textbar}0 \rangle - \beta \text{\textbar}1 \rangle$ |
+|    1    |    1    | $Z^{1}X^{0}$ | $\alpha \text{\textbar}1 \rangle - \beta \text{\textbar}0 \rangle$ |
 
 现在我们知道了这个线路的输出结果，也知道了这个线路的工作过程，但是！这个线路到底有什么作用呢？从这些结果中也看不出个所以然来。那么我告诉你，我们刚刚进行了一次**量子通信**，你相信吗？
 
@@ -390,14 +390,14 @@ $Toffoli$门说明了很重要的一点：**量子计算和经典计算可以通
 根据这个规则，我们再来构建其他受控门的矩阵形式，例如受控$Z$ 门，它的符号表示和矩阵形式如下图所示：
 
 ![ControlledZ](./image/ControlledZ.jpg)
-
-​									图3.2  $Controlled-Z$ 门
+           
+图3.2  $Controlled-Z$ 门
 
 在上面的$Controlled-Z$ 门中，控制qubit在位于上方，目标qubit在下方，如果我们将它们的位置交换一下，那么相应的矩阵会改变吗？答案是不会，我们在下面的图中分别画出了两种线路图和它们的输入输出之间的关系，结果表明，上下位置的颠倒并不会对量子线路的结果造成影响，因此它们的矩阵形式是一样的。
 
 ![ControlledZReverse](./image/ControlledZReverse.jpg)
 
-   								图3.3  翻转$Controlled-Z$门
+图3.3  翻转$Controlled-Z$门
 
 #### 3.2.2 量子线路与矩阵
 
@@ -405,13 +405,13 @@ $Toffoli$门说明了很重要的一点：**量子计算和经典计算可以通
 
 ![QuantumCircuit](./image/QuantumCircuit.jpg)
 
-​										图3.4  量子线路示例
+​图3.4  量子线路示例
 
 对于这样一个量子线路，我们首先将其以门为单位进行纵向的切分，就像图3.5中所示那样，每个分区内部的量子门矩阵的张量积就是这个分区的矩阵表示。
 
 ![QuantumCircuitDIvide](./image/QuantumCircuitDIvide.jpg)
 
-​									图3.5  量子线路分区
+​图3.5  量子线路分区
 
 得到每个分区的矩阵后，整个线路的矩阵表示就是所有分区矩阵按从左到右的顺序相乘所得的矩阵乘积，那么上面的量子线路最终的矩阵表示为：
 
@@ -437,14 +437,14 @@ $A|\varphi \rangle = | \varphi^{'} \rangle$
 
 |      输入      |       输出       |
 | :------------: | :--------------: |
-| $|000 \rangle$ |  $|000 \rangle$  |
-| $|001 \rangle$ |  $|100 \rangle$  |
-| $|010\rangle$  | $ | 010 \rangle$ |
-| $|011 \rangle$ |  $|110 \rangle$  |
-| $|100 \rangle$ |  $|001 \rangle$  |
-| $|101 \rangle$ |  $|101 \rangle$  |
-| $|110 \rangle$ |  $|011 \rangle$  |
-| $|111 \rangle$ |  $|111 \rangle$  |
+| $\text{\textbar}000 \rangle$ |  $\text{\textbar}000 \rangle$  |
+| $\text{\textbar}001 \rangle$ |  $\text{\textbar}100 \rangle$  |
+| $\text{\textbar}010 \rangle$ |  $\text{\textbar}010 \rangle$  |
+| $\text{\textbar}011 \rangle$ |  $\text{\textbar}110 \rangle$  |
+| $\text{\textbar}100 \rangle$ |  $\text{\textbar}001 \rangle$  |
+| $\text{\textbar}101 \rangle$ |  $\text{\textbar}101 \rangle$  |
+| $\text{\textbar}110 \rangle$ |  $\text{\textbar}011 \rangle$  |
+| $\text{\textbar}111 \rangle$ |  $\text{\textbar}111 \rangle$  |
 
 将上表的量子态用矩阵运算的形式可以表示为：
 
